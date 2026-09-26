@@ -11,6 +11,7 @@ export const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showDemoCreds, setShowDemoCreds] = useState(false);
 
   const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
@@ -135,20 +136,32 @@ export const Login = () => {
             </Button>
           </form>
 
-          {/* Quick Demo Credentials Assistant */}
-          <div className="mt-8 pt-5 border-t border-slate-100 text-center">
-            <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-              Default Admin Credentials
-            </p>
-            <button
-              onClick={fillDefaultCredentials}
-              type="button"
-              className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-mono text-violet-700 font-bold transition-all duration-200 cursor-pointer active:scale-95"
-            >
-              <span>admin@printshop.com</span>
-              <span className="text-slate-300">•</span>
-              <span>admin123</span>
-            </button>
+          {/* Collapsible Demo Credentials Assistant */}
+          <div className="mt-6 pt-4 border-t border-slate-100 text-center">
+            {!showDemoCreds ? (
+              <button
+                type="button"
+                onClick={() => setShowDemoCreds(true)}
+                className="text-xs text-slate-400 hover:text-violet-600 font-medium transition-colors cursor-pointer"
+              >
+                Show demo admin credentials
+              </button>
+            ) : (
+              <div className="space-y-2 animate-in fade-in duration-200">
+                <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                  Default Admin Credentials
+                </p>
+                <button
+                  onClick={fillDefaultCredentials}
+                  type="button"
+                  className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-mono text-violet-700 font-bold transition-all duration-200 cursor-pointer active:scale-95"
+                >
+                  <span>admin@printshop.com</span>
+                  <span className="text-slate-300">•</span>
+                  <span>admin123</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
