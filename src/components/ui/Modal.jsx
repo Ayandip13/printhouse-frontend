@@ -32,25 +32,25 @@ export const Modal = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-slate-950/80 backdrop-blur-md transition-opacity animate-in fade-in duration-200"
+        className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
         onClick={onClose}
       />
 
       {/* Modal Dialog Container */}
       <div
-        className={`relative w-full ${maxWidth} bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl shadow-indigo-950/50 overflow-hidden z-10 animate-in zoom-in-95 duration-200`}
+        className={`relative w-full ${maxWidth} bg-white border border-slate-200 rounded-3xl shadow-2xl shadow-slate-900/10 overflow-hidden z-10 animate-in zoom-in-95 duration-200`}
         role="dialog"
         aria-modal="true"
       >
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800">
+        <div className="flex items-center justify-between px-6 py-4.5 border-b border-slate-100 bg-slate-50/50">
           <div>
-            {title && <h3 className="text-lg font-bold text-slate-100">{title}</h3>}
-            {description && <p className="text-xs text-slate-400 mt-0.5">{description}</p>}
+            {title && <h3 className="text-lg font-bold text-slate-900">{title}</h3>}
+            {description && <p className="text-xs text-slate-500 mt-0.5">{description}</p>}
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-100 hover:bg-slate-800 p-2 rounded-xl transition-colors focus:outline-none"
+            className="text-slate-400 hover:text-slate-700 hover:bg-slate-200/60 p-2 rounded-xl transition-colors focus:outline-none cursor-pointer"
             aria-label="Close dialog"
           >
             <X className="w-5 h-5" />
@@ -62,7 +62,7 @@ export const Modal = ({
 
         {/* Modal Footer */}
         {footer && (
-          <div className="px-6 py-4 bg-slate-950/50 border-t border-slate-800/80 flex items-center justify-end gap-3">
+          <div className="px-6 py-4 bg-slate-50/80 border-t border-slate-100 flex items-center justify-end gap-3">
             {footer}
           </div>
         )}

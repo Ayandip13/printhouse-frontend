@@ -19,7 +19,7 @@ export const Select = React.forwardRef(
     return (
       <div className="w-full space-y-1.5">
         {label && (
-          <label htmlFor={selectId} className="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+          <label htmlFor={selectId} className="block text-xs font-bold uppercase tracking-wider text-slate-700">
             {label}
           </label>
         )}
@@ -27,15 +27,15 @@ export const Select = React.forwardRef(
           <select
             ref={ref}
             id={selectId}
-            className={`w-full rounded-xl bg-slate-900/90 text-slate-100 border transition-all duration-200 text-sm focus:outline-none focus:ring-2 px-3.5 py-2.5 appearance-none cursor-pointer ${
+            className={`w-full rounded-xl bg-white text-slate-900 border transition-all duration-200 text-sm focus:outline-none focus:ring-2 px-3.5 py-2.5 appearance-none cursor-pointer ${
               error
-                ? 'border-rose-500/80 focus:border-rose-500 focus:ring-rose-500/25'
-                : 'border-slate-700/80 hover:border-slate-600 focus:border-indigo-500 focus:ring-indigo-500/25'
+                ? 'border-rose-300 focus:border-rose-500 focus:ring-rose-500/20'
+                : 'border-slate-200 hover:border-slate-300 focus:border-violet-600 focus:ring-violet-500/20'
             } ${className}`}
             {...props}
           >
             {placeholder && (
-              <option value="" disabled className="bg-slate-900 text-slate-500">
+              <option value="" disabled className="bg-white text-slate-400">
                 {placeholder}
               </option>
             )}
@@ -43,7 +43,7 @@ export const Select = React.forwardRef(
               <option
                 key={opt.value}
                 value={opt.value}
-                className="bg-slate-900 text-slate-100 py-1"
+                className="bg-white text-slate-900 py-1"
               >
                 {opt.label}
               </option>
@@ -56,9 +56,9 @@ export const Select = React.forwardRef(
           </div>
         </div>
         {error ? (
-          <p className="text-xs text-rose-400 font-medium">{error}</p>
+          <p className="text-xs text-rose-600 font-medium">{error}</p>
         ) : helperText ? (
-          <p className="text-xs text-slate-400">{helperText}</p>
+          <p className="text-xs text-slate-500">{helperText}</p>
         ) : null}
       </div>
     );

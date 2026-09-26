@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, User, Phone, Briefcase, Palette, Hash, DollarSign, Clock, CheckCircle2 } from 'lucide-react';
+import { Calendar, Phone, Palette, Clock } from 'lucide-react';
 import { Modal } from '../ui/Modal';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
@@ -48,12 +48,12 @@ export const JobDetailsModal = ({ isOpen, onClose, job, onEdit }) => {
     >
       <div className="space-y-5 text-sm">
         {/* Header Status & Client Banner */}
-        <div className="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 flex items-center justify-between">
+        <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
           <div>
-            <h3 className="text-base font-bold text-slate-100">{job.clientName}</h3>
+            <h3 className="text-base font-bold text-slate-900">{job.clientName}</h3>
             {job.phoneNumber && (
-              <p className="text-xs text-slate-400 flex items-center gap-1.5 mt-0.5">
-                <Phone className="w-3.5 h-3.5 text-indigo-400" />
+              <p className="text-xs text-slate-500 flex items-center gap-1.5 mt-0.5">
+                <Phone className="w-3.5 h-3.5 text-violet-600" />
                 <span>{job.phoneNumber}</span>
               </p>
             )}
@@ -63,44 +63,44 @@ export const JobDetailsModal = ({ isOpen, onClose, job, onEdit }) => {
 
         {/* Job Description Card */}
         <div className="space-y-1">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-400">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
             Description / Specifications
           </span>
-          <p className="p-3.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-200 font-medium text-xs leading-relaxed">
+          <p className="p-3.5 rounded-xl bg-white border border-slate-200 text-slate-800 font-medium text-xs leading-relaxed">
             {job.description}
           </p>
         </div>
 
         {/* Financial Breakdown Card */}
-        <div className="p-4 rounded-2xl bg-indigo-500/5 border border-indigo-500/20 space-y-3">
-          <span className="text-xs font-bold uppercase tracking-wider text-indigo-400">
+        <div className="p-4 rounded-2xl bg-violet-50/50 border border-violet-100 space-y-3">
+          <span className="text-xs font-bold uppercase tracking-wider text-violet-700">
             Financial & Rates Breakdown
           </span>
 
           <div className="grid grid-cols-2 gap-3 text-xs">
-            <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
-              <span className="text-slate-400">Quantity × Rate:</span>
-              <p className="font-mono font-bold text-slate-100 mt-0.5">
+            <div className="bg-white p-2.5 rounded-xl border border-slate-200">
+              <span className="text-slate-500">Quantity × Rate:</span>
+              <p className="font-mono font-bold text-slate-900 mt-0.5">
                 {job.quantity} × ₹{job.rate?.toLocaleString('en-IN')}
               </p>
             </div>
 
-            <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
-              <span className="text-slate-400">Total Amount:</span>
-              <p className="font-mono font-bold text-indigo-300 mt-0.5">
+            <div className="bg-white p-2.5 rounded-xl border border-slate-200">
+              <span className="text-slate-500">Total Amount:</span>
+              <p className="font-mono font-bold text-violet-700 mt-0.5">
                 ₹{amount.toLocaleString('en-IN')}
               </p>
             </div>
 
-            <div className="bg-slate-900/60 p-2.5 rounded-xl border border-slate-800">
-              <span className="text-slate-400">Advance Paid:</span>
-              <p className="font-mono font-bold text-slate-200 mt-0.5">
+            <div className="bg-white p-2.5 rounded-xl border border-slate-200">
+              <span className="text-slate-500">Advance Paid:</span>
+              <p className="font-mono font-bold text-slate-800 mt-0.5">
                 ₹{advance.toLocaleString('en-IN')}
               </p>
             </div>
 
             <div className={`p-2.5 rounded-xl border font-mono font-bold ${
-              due > 0 ? 'bg-amber-500/10 border-amber-500/30 text-amber-300' : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+              due > 0 ? 'bg-amber-50 border-amber-200 text-amber-800' : 'bg-emerald-50 border-emerald-200 text-emerald-800'
             }`}>
               <span>Balance Due:</span>
               <p className="text-sm mt-0.5">₹{due.toLocaleString('en-IN')}</p>
@@ -109,28 +109,28 @@ export const JobDetailsModal = ({ isOpen, onClose, job, onEdit }) => {
         </div>
 
         {/* Info Grid */}
-        <div className="grid grid-cols-2 gap-3 text-xs text-slate-300">
-          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/40 border border-slate-800">
-            <Palette className="w-4 h-4 text-purple-400 shrink-0" />
+        <div className="grid grid-cols-2 gap-3 text-xs text-slate-700">
+          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200">
+            <Palette className="w-4 h-4 text-purple-600 shrink-0" />
             <div>
-              <span className="text-[10px] text-slate-400 block">Designer</span>
-              <span className="font-semibold text-slate-200">{job.designer || 'Unassigned'}</span>
+              <span className="text-[10px] text-slate-500 block">Designer</span>
+              <span className="font-bold text-slate-900">{job.designer || 'Unassigned'}</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/40 border border-slate-800">
-            <Calendar className="w-4 h-4 text-indigo-400 shrink-0" />
+          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200">
+            <Calendar className="w-4 h-4 text-violet-600 shrink-0" />
             <div>
-              <span className="text-[10px] text-slate-400 block">Order Date</span>
-              <span className="font-semibold text-slate-200">{formatDate(job.date)}</span>
+              <span className="text-[10px] text-slate-500 block">Order Date</span>
+              <span className="font-bold text-slate-900">{formatDate(job.date)}</span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/40 border border-slate-800 col-span-2">
-            <Clock className="w-4 h-4 text-pink-400 shrink-0" />
+          <div className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-slate-200 col-span-2">
+            <Clock className="w-4 h-4 text-pink-600 shrink-0" />
             <div>
-              <span className="text-[10px] text-slate-400 block">Delivery Date</span>
-              <span className="font-semibold text-slate-200">{formatDate(job.deliveryDate)}</span>
+              <span className="text-[10px] text-slate-500 block">Delivery Date</span>
+              <span className="font-bold text-slate-900">{formatDate(job.deliveryDate)}</span>
             </div>
           </div>
         </div>

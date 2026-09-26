@@ -34,15 +34,15 @@ export const DeleteJobModal = ({
         </>
       }
     >
-      <div className="flex items-start gap-4 p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20">
-        <div className="p-2.5 rounded-xl bg-rose-500/20 text-rose-400 shrink-0">
+      <div className="flex items-start gap-4 p-4 rounded-2xl bg-rose-50 border border-rose-200">
+        <div className="p-2.5 rounded-xl bg-rose-100 text-rose-600 shrink-0">
           <AlertTriangle className="w-6 h-6" />
         </div>
-        <div className="space-y-1 text-xs text-rose-200">
-          <h4 className="font-bold text-sm text-rose-100">Confirm Job Removal</h4>
+        <div className="space-y-1 text-xs text-rose-800">
+          <h4 className="font-bold text-sm text-rose-950">Confirm Job Removal</h4>
           <p>
             Are you sure you want to delete the print job for{' '}
-            <strong className="text-white font-semibold">"{job.clientName}"</strong> (
+            <strong className="text-slate-900 font-bold">"{job.clientName}"</strong> (
             {job.description})?
           </p>
         </div>

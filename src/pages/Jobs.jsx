@@ -4,14 +4,10 @@ import {
   Briefcase,
   Plus,
   Search,
-  Filter,
-  Calendar,
-  User,
   Phone,
   Eye,
   Edit2,
   Trash2,
-  Clock,
   Sparkles,
   RefreshCw,
 } from 'lucide-react';
@@ -34,15 +30,12 @@ import { JobCard } from '../components/jobs/JobCard';
 export const Jobs = () => {
   const queryClient = useQueryClient();
 
-  // Modal visibility states
   const [isFormModalOpen, setIsFormModalOpen] = useState(false);
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
-  // Selected item states
   const [selectedJob, setSelectedJob] = useState(null);
 
-  // Filter & Search states
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedStatus, setSelectedStatus] = useState('All');
 
@@ -53,7 +46,7 @@ export const Jobs = () => {
     { value: 'Complete', label: 'Complete' },
   ];
 
-  // 1. Fetch Jobs Query using TanStack Query
+  // Fetch Jobs Query
   const {
     data: jobsResponse,
     isLoading,
@@ -67,37 +60,39 @@ export const Jobs = () => {
 
   const jobs = jobsResponse?.data || [];
 
-  // 2. Create Job Mutation
+  // Create Job Mutation
   const createMutation = useMutation({
     mutationFn: (jobData) => jobService.createJob(jobData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['jobs'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
       setIsFormModalOpen(false);
       setSelectedJob(null);
     },
   });
 
-  // 3. Update Job Mutation
+  // Update Job Mutation
   const updateMutation = useMutation({
     mutationFn: ({ id, jobData }) => jobService.updateJob(id, jobData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['jobs'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
       setIsFormModalOpen(false);
       setSelectedJob(null);
     },
   });
 
-  // 4. Delete Job Mutation
+  // Delete Job Mutation
   const deleteMutation = useMutation({
     mutationFn: (id) => jobService.deleteJob(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['jobs'] });
+      queryClient.invalidateQueries({ queryKey: ['dashboard'] });
       setIsDeleteModalOpen(false);
       setSelectedJob(null);
     },
   });
 
-  // Handlers for Modals
   const handleOpenCreate = () => {
     setSelectedJob(null);
     setIsFormModalOpen(true);
@@ -132,10 +127,8 @@ export const Jobs = () => {
     }
   };
 
-  // Client-side filtering logic
   const filteredJobs = useMemo(() => {
     return jobs.filter((job) => {
-      // Status filter
       if (selectedStatus !== 'All') {
         const normStatus = (job.status || '').toLowerCase();
         const normSelected = selectedStatus.toLowerCase();
@@ -144,7 +137,6 @@ export const Jobs = () => {
         if (normSelected === 'pending' && normStatus !== 'pending') return false;
       }
 
-      // Search query filter (Client Name, Phone Number, Description)
       if (searchQuery.trim()) {
         const query = searchQuery.toLowerCase().trim();
         const matchName = (job.clientName || '').toLowerCase().includes(query);
@@ -171,9 +163,9 @@ export const Jobs = () => {
       {/* Page Header */}
       <PageHeader
         title="Jobs & Orders"
-        description="Centralized Excel-based billing, order tracking, and print status management"
+        description="Centralized billing, order tracking, and production status management"
         badge={
-          <span className="px-2.5 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-semibold flex items-center gap-1.5">
+          <span className="px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 text-xs font-bold flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5" /> Total: {jobs.length}
           </span>
         }
@@ -213,7 +205,7 @@ export const Jobs = () => {
                 onClick={() => refetch()}
                 icon={RefreshCw}
                 title="Refresh jobs list"
-                className="p-2.5 text-slate-400 hover:text-slate-100 shrink-0"
+                className="p-2.5 text-slate-500 hover:text-slate-900 shrink-0"
               />
             </div>
           </div>
@@ -234,7 +226,7 @@ export const Jobs = () => {
         />
       )}
 
-      {/* Main Content View (Empty vs List) */}
+      {/* Main Content View */}
       {!isLoading && !isError && (
         <>
           {filteredJobs.length === 0 ? (
@@ -244,7 +236,7 @@ export const Jobs = () => {
               description={
                 searchQuery || selectedStatus !== 'All'
                   ? 'Try clearing your search query or changing the status filter.'
-                  : 'Start recording jobs from your Excel workflow into this centralized billing and status tracker.'
+                  : 'Start recording jobs into this centralized billing and status tracker.'
               }
               actionLabel={searchQuery || selectedStatus !== 'All' ? 'Clear Filters' : 'Create First Job'}
               onAction={
@@ -258,12 +250,12 @@ export const Jobs = () => {
             />
           ) : (
             <>
-              {/* DESKTOP TABLE VIEW (hidden on mobile, visible on md+) */}
+              {/* DESKTOP TABLE VIEW */}
               <div className="hidden md:block">
-                <Card className="overflow-hidden">
+                <Card className="overflow-hidden border-slate-200">
                   <div className="overflow-x-auto">
-                    <table className="w-full text-left text-xs text-slate-300">
-                      <thead className="bg-slate-900/90 text-[11px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800">
+                    <table className="w-full text-left text-xs text-slate-700">
+                      <thead className="bg-slate-50 text-[11px] font-bold uppercase tracking-wider text-slate-500 border-b border-slate-200">
                         <tr>
                           <th className="px-4 py-3.5">Date</th>
                           <th className="px-4 py-3.5">Client & Phone</th>
@@ -279,54 +271,54 @@ export const Jobs = () => {
                           <th className="px-4 py-3.5 text-right">Actions</th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-slate-800/60 font-medium">
+                      <tbody className="divide-y divide-slate-100 font-medium">
                         {filteredJobs.map((job) => {
                           const amt = job.amount || (job.quantity || 0) * (job.rate || 0);
                           const adv = job.advance || 0;
                           const due = Math.max(0, amt - adv);
 
                           return (
-                            <tr key={job._id} className="hover:bg-slate-800/30 transition-colors">
-                              <td className="px-4 py-3 text-slate-400 whitespace-nowrap font-mono">
+                            <tr key={job._id} className="hover:bg-slate-50 transition-colors">
+                              <td className="px-4 py-3 text-slate-500 whitespace-nowrap font-mono">
                                 {formatDate(job.date)}
                               </td>
-                              <td className="px-4 py-3 font-semibold text-slate-100">
+                              <td className="px-4 py-3 font-bold text-slate-900">
                                 <div className="truncate max-w-[150px]" title={job.clientName}>
                                   {job.clientName}
                                 </div>
                                 {job.phoneNumber && (
-                                  <div className="text-[10px] text-slate-400 font-mono font-normal flex items-center gap-1">
-                                    <Phone className="w-2.5 h-2.5 text-indigo-400" />
+                                  <div className="text-[10px] text-slate-500 font-mono font-normal flex items-center gap-1">
+                                    <Phone className="w-2.5 h-2.5 text-violet-600" />
                                     <span>{job.phoneNumber}</span>
                                   </div>
                                 )}
                               </td>
-                              <td className="px-4 py-3 text-slate-200">
+                              <td className="px-4 py-3 text-slate-700">
                                 <div className="line-clamp-2 max-w-[200px]" title={job.description}>
                                   {job.description}
                                 </div>
                               </td>
-                              <td className="px-4 py-3 text-slate-400 whitespace-nowrap">
+                              <td className="px-4 py-3 text-slate-600 whitespace-nowrap">
                                 {job.designer || 'Unassigned'}
                               </td>
-                              <td className="px-3 py-3 text-center font-mono font-bold text-slate-200">
+                              <td className="px-3 py-3 text-center font-mono font-bold text-slate-900">
                                 {job.quantity}
                               </td>
-                              <td className="px-4 py-3 text-right font-mono text-slate-300">
+                              <td className="px-4 py-3 text-right font-mono text-slate-700">
                                 ₹{job.rate?.toLocaleString('en-IN')}
                               </td>
-                              <td className="px-4 py-3 text-right font-mono font-bold text-indigo-300">
+                              <td className="px-4 py-3 text-right font-mono font-bold text-violet-700">
                                 ₹{amt.toLocaleString('en-IN')}
                               </td>
-                              <td className="px-4 py-3 text-right font-mono text-slate-300">
+                              <td className="px-4 py-3 text-right font-mono text-slate-700">
                                 ₹{adv.toLocaleString('en-IN')}
                               </td>
                               <td className={`px-4 py-3 text-right font-mono font-bold ${
-                                due > 0 ? 'text-amber-400' : 'text-emerald-400'
+                                due > 0 ? 'text-amber-700' : 'text-emerald-700'
                               }`}>
                                 ₹{due.toLocaleString('en-IN')}
                               </td>
-                              <td className="px-4 py-3 text-slate-400 whitespace-nowrap font-mono">
+                              <td className="px-4 py-3 text-slate-500 whitespace-nowrap font-mono">
                                 {formatDate(job.deliveryDate)}
                               </td>
                               <td className="px-4 py-3 text-center whitespace-nowrap">
@@ -337,21 +329,21 @@ export const Jobs = () => {
                                   <button
                                     onClick={() => handleOpenView(job)}
                                     title="View Job"
-                                    className="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+                                    className="p-1.5 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-colors cursor-pointer"
                                   >
                                     <Eye className="w-4 h-4" />
                                   </button>
                                   <button
                                     onClick={() => handleOpenEdit(job)}
                                     title="Edit Job"
-                                    className="p-1.5 text-slate-400 hover:text-indigo-400 hover:bg-indigo-500/10 rounded-lg transition-colors"
+                                    className="p-1.5 text-slate-500 hover:text-violet-600 hover:bg-violet-50 rounded-lg transition-colors cursor-pointer"
                                   >
                                     <Edit2 className="w-4 h-4" />
                                   </button>
                                   <button
                                     onClick={() => handleOpenDelete(job)}
                                     title="Delete Job"
-                                    className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
+                                    className="p-1.5 text-slate-500 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
                                   >
                                     <Trash2 className="w-4 h-4" />
                                   </button>
@@ -366,7 +358,7 @@ export const Jobs = () => {
                 </Card>
               </div>
 
-              {/* MOBILE CARD VIEW (visible on small screens, hidden on md+) */}
+              {/* MOBILE CARD VIEW */}
               <div className="grid grid-cols-1 gap-4 md:hidden">
                 {filteredJobs.map((job) => (
                   <JobCard

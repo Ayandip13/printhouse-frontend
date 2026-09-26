@@ -2,13 +2,15 @@ import React from 'react';
 
 export const Badge = ({ children, status = 'default', className = '' }) => {
   const styles = {
-    pending: 'bg-amber-500/10 text-amber-400 border-amber-500/30',
-    processing: 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30',
-    completed: 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30',
-    cancelled: 'bg-rose-500/10 text-rose-400 border-rose-500/30',
-    active: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/30',
-    inactive: 'bg-slate-500/10 text-slate-400 border-slate-500/30',
-    default: 'bg-slate-800 text-slate-300 border-slate-700',
+    pending: 'bg-amber-50 text-amber-700 border-amber-200/90',
+    processing: 'bg-blue-50 text-blue-700 border-blue-200/90',
+    process: 'bg-blue-50 text-blue-700 border-blue-200/90',
+    completed: 'bg-emerald-50 text-emerald-700 border-emerald-200/90',
+    complete: 'bg-emerald-50 text-emerald-700 border-emerald-200/90',
+    cancelled: 'bg-rose-50 text-rose-700 border-rose-200/90',
+    active: 'bg-violet-50 text-violet-700 border-violet-200/90',
+    inactive: 'bg-slate-100 text-slate-600 border-slate-200',
+    default: 'bg-slate-100 text-slate-700 border-slate-200',
   };
 
   const key = String(status).toLowerCase();
@@ -16,7 +18,7 @@ export const Badge = ({ children, status = 'default', className = '' }) => {
 
   return (
     <span
-      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${appliedStyle} ${className}`}
+      className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${appliedStyle} ${className}`}
     >
       <span className="w-1.5 h-1.5 rounded-full bg-current mr-1.5 opacity-80" />
       {children || status}

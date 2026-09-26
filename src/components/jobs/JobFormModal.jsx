@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { Calendar, User, Phone, Briefcase, Palette, Hash, DollarSign, Tag, Clock } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { Calendar, User, Phone, Briefcase, Palette, Hash, DollarSign, Clock } from 'lucide-react';
 import { Modal } from '../ui/Modal';
 import { Input } from '../ui/Input';
 import { Select } from '../ui/Select';
 import { Button } from '../ui/Button';
+import { designerService } from '../../services/designerService';
 
 export const JobFormModal = ({
   isOpen,
@@ -13,6 +15,15 @@ export const JobFormModal = ({
   isLoading = false,
 }) => {
   const isEdit = !!jobToEdit;
+
+  // Fetch active designers from API
+  const { data: activeDesignersRes } = useQuery({
+    queryKey: ['designers', 'active'],
+    queryFn: () => designerService.getDesigners(true),
+    enabled: isOpen,
+  });
+
+  const activeDesigners = activeDesignersRes?.data || [];
 
   // Form states
   const [formData, setFormData] = useState({
@@ -61,6 +72,31 @@ export const JobFormModal = ({
     }
     setErrors({});
   }, [jobToEdit, isOpen]);
+
+  // Build dynamic designer options list with backward compatibility
+  const designerOptions = useMemo(() => {
+    const list = [{ value: 'Unassigned', label: 'Unassigned (No Designer)' }];
+
+    // Add active designers from DB
+    activeDesigners.forEach((d) => {
+      list.push({ value: d.name, label: d.name });
+    });
+
+    // Backward compatibility: If editing a job with a designer name that isn't in active list (e.g. inactive or legacy)
+    const currentDes = formData.designer;
+    if (
+      currentDes &&
+      currentDes !== 'Unassigned' &&
+      !list.some((opt) => opt.value.toLowerCase() === currentDes.toLowerCase())
+    ) {
+      list.push({
+        value: currentDes,
+        label: `${currentDes} (Assigned / Inactive)`,
+      });
+    }
+
+    return list;
+  }, [activeDesigners, formData.designer]);
 
   // Live calculation of Amount and Due
   const qtyNum = Number(formData.quantity) || 0;
@@ -128,8 +164,8 @@ export const JobFormModal = ({
       title={isEdit ? 'Edit Print Job' : 'Create New Print Job'}
       description={
         isEdit
-          ? 'Update job details, rates, and production status'
-          : 'Enter new print job billing details based on Excel workflow'
+          ? 'Update job details, rates, assigned designer, and production status'
+          : 'Enter new print job billing details and select assigned designer'
       }
       maxWidth="max-w-2xl"
       footer={
@@ -183,15 +219,15 @@ export const JobFormModal = ({
           required
         />
 
-        {/* Row 3: Designer & Status */}
+        {/* Row 3: Designer Select & Status */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <Input
-            label="Designer"
+          <Select
+            label="Assigned Designer"
             name="designer"
-            placeholder="e.g. Alex Rivers or Unassigned"
-            icon={Palette}
+            options={designerOptions}
             value={formData.designer}
             onChange={handleChange}
+            placeholder=""
           />
 
           <Select
