@@ -77,12 +77,10 @@ export const JobFormModal = ({
   const designerOptions = useMemo(() => {
     const list = [{ value: 'Unassigned', label: 'Unassigned (No Designer)' }];
 
-    // Add active designers from DB
     activeDesigners.forEach((d) => {
       list.push({ value: d.name, label: d.name });
     });
 
-    // Backward compatibility: If editing a job with a designer name that isn't in active list (e.g. inactive or legacy)
     const currentDes = formData.designer;
     if (
       currentDes &&
@@ -138,6 +136,8 @@ export const JobFormModal = ({
     }
     if (isNaN(Number(formData.advance)) || Number(formData.advance) < 0) {
       newErrors.advance = 'Advance cannot be negative';
+    } else if (Number(formData.advance) > calculatedAmount) {
+      newErrors.advance = `Advance (₹${Number(formData.advance).toLocaleString('en-IN')}) cannot exceed total amount (₹${calculatedAmount.toLocaleString('en-IN')})`;
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -241,10 +241,10 @@ export const JobFormModal = ({
         </div>
 
         {/* Row 4: Quantity, Rate, Live Amount */}
-        <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-3">
-          <div className="flex items-center justify-between text-xs font-bold text-indigo-400 uppercase tracking-wider">
+        <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
+          <div className="flex items-center justify-between text-xs font-bold text-violet-700 uppercase tracking-wider">
             <span>Pricing & Billing Calculation</span>
-            <span className="text-[10px] text-slate-400 font-normal">Auto-calculated (Qty × Rate)</span>
+            <span className="text-[10px] text-slate-500 font-normal">Auto-calculated (Qty × Rate)</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
@@ -276,18 +276,18 @@ export const JobFormModal = ({
 
             {/* Calculated Total Amount Display */}
             <div className="w-full space-y-1.5">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
                 Calculated Amount
               </label>
-              <div className="px-3.5 py-2.5 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-mono font-bold text-sm flex items-center justify-between">
+              <div className="px-3.5 py-2.5 rounded-xl bg-violet-50 border border-violet-200 text-violet-800 font-mono font-bold text-sm flex items-center justify-between shadow-xs">
                 <span>Total Amount:</span>
-                <span className="text-base text-indigo-200">₹{calculatedAmount.toLocaleString('en-IN')}</span>
+                <span className="text-base text-violet-900">₹{calculatedAmount.toLocaleString('en-IN')}</span>
               </div>
             </div>
           </div>
 
           {/* Row 5: Advance & Due Calculation */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-800/80">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200/80">
             <Input
               label="Advance Paid (₹)"
               name="advance"
@@ -301,14 +301,14 @@ export const JobFormModal = ({
             />
 
             <div className="w-full space-y-1.5">
-              <label className="block text-xs font-semibold uppercase tracking-wider text-slate-300">
+              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
                 Calculated Due
               </label>
               <div
-                className={`px-3.5 py-2.5 rounded-xl border font-mono font-bold text-sm flex items-center justify-between ${
+                className={`px-3.5 py-2.5 rounded-xl border font-mono font-bold text-sm flex items-center justify-between shadow-xs ${
                   calculatedDue > 0
-                    ? 'bg-amber-500/10 border-amber-500/30 text-amber-300'
-                    : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300'
+                    ? 'bg-amber-50 border-amber-200 text-amber-800'
+                    : 'bg-emerald-50 border-emerald-200 text-emerald-800'
                 }`}
               >
                 <span>Balance Due:</span>
