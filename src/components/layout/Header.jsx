@@ -15,7 +15,7 @@ export const Header = () => {
           </div>
         </div>
         <span className="text-sm font-black text-slate-900 tracking-tight flex items-center gap-1">
-          PrintCraft <Sparkles className="w-3 h-3 text-pink-500 fill-pink-500/20" />
+          PrintCraft
         </span>
       </div>
 

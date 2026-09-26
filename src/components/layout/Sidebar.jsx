@@ -23,7 +23,7 @@ export const Sidebar = () => {
         </div>
         <div>
           <h2 className="text-base font-black tracking-tight text-slate-900 flex items-center gap-1.5">
-            PrintCraft <Sparkles className="w-3.5 h-3.5 text-pink-500 fill-pink-500/20" />
+            PrintCraft
           </h2>
           <p className="text-[10px] font-bold text-slate-400 tracking-wider uppercase">
             Print & Gift Studio

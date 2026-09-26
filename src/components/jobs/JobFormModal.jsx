@@ -311,7 +311,7 @@ export const JobFormModal = ({
                     : 'bg-emerald-50 border-emerald-200 text-emerald-800'
                 }`}
               >
-                <span>Balance Due:</span>
+                <span>Due:</span>
                 <span className="text-base">₹{calculatedDue.toLocaleString('en-IN')}</span>
               </div>
             </div>

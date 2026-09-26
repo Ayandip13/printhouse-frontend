@@ -150,7 +150,7 @@ export const Designers = () => {
         description="Manage graphics designers, active job loads, and contact details"
         badge={
           <span className="px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 text-xs font-bold flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5" /> Total: {designers.length}
+            Total: {designers.length}
           </span>
         }
         action={

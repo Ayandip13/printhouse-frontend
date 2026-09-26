@@ -166,7 +166,7 @@ export const Jobs = () => {
         description="Centralized billing, order tracking, and production status management"
         badge={
           <span className="px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 text-xs font-bold flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5" /> Total: {jobs.length}
+            Total: {jobs.length}
           </span>
         }
         action={
@@ -176,7 +176,7 @@ export const Jobs = () => {
             variant="primary"
             size="md"
           >
-            + New Job
+            New Job
           </Button>
         }
       />

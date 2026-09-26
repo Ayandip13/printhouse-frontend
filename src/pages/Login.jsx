@@ -74,7 +74,7 @@ export const Login = () => {
           </div>
           <div>
             <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 flex items-center justify-center gap-2">
-              PrintCraft <Sparkles className="w-5 h-5 text-pink-500 fill-pink-500/30" />
+              PrintCraft
             </h1>
             <p className="text-xs sm:text-sm text-slate-500 font-semibold mt-1">
               Printing & Gift Shop Management Portal
