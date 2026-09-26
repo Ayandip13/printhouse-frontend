@@ -137,7 +137,7 @@ export const Login = () => {
           </form>
 
           {/* Collapsible Demo Credentials Assistant */}
-          <div className="mt-6 pt-4 border-t border-slate-100 text-center">
+          {/* <div className="mt-6 pt-4 border-t border-slate-100 text-center">
             {!showDemoCreds ? (
               <button
                 type="button"
@@ -162,7 +162,7 @@ export const Login = () => {
                 </button>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
 
         {/* Footer info */}
