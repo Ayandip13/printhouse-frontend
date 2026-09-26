@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-const rawUrl = import.meta.env.VITE_API_URL || '/api';
+const DEFAULT_LIVE_API_URL = 'https://printhouse-api-tt4q.onrender.com/api';
+const rawUrl = import.meta.env.VITE_API_URL || DEFAULT_LIVE_API_URL;
 
 const getFormattedApiUrl = (url) => {
-  if (!url || url === '/api') return '/api';
+  if (!url) return DEFAULT_LIVE_API_URL;
   let trimmed = url.trim().replace(/\/+$/, '');
+  if (trimmed === '/api') return '/api';
   if (!trimmed.endsWith('/api')) {
     trimmed += '/api';
   }
