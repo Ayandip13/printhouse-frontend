@@ -86,7 +86,7 @@ export const JobDetailsModal = ({ isOpen, onClose, job, onEdit }) => {
             </div>
 
             <div className="bg-white p-2.5 rounded-xl border border-slate-200">
-              <span className="text-slate-500">Total Amount:</span>
+              <span className="text-slate-500">Total:</span>
               <p className="font-mono font-bold text-violet-700 mt-0.5">
                 ₹{amount.toLocaleString('en-IN')}
               </p>
@@ -99,9 +99,8 @@ export const JobDetailsModal = ({ isOpen, onClose, job, onEdit }) => {
               </p>
             </div>
 
-            <div className={`p-2.5 rounded-xl border font-mono font-bold ${
-              due > 0 ? 'bg-amber-50 border-amber-200 text-amber-800' : 'bg-emerald-50 border-emerald-200 text-emerald-800'
-            }`}>
+            <div className={`p-2.5 rounded-xl border font-mono font-bold ${due > 0 ? 'bg-amber-50 border-amber-200 text-amber-800' : 'bg-emerald-50 border-emerald-200 text-emerald-800'
+              }`}>
               <span>Balance Due:</span>
               <p className="text-sm mt-0.5">₹{due.toLocaleString('en-IN')}</p>
             </div>

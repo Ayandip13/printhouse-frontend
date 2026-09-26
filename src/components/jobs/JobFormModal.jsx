@@ -137,7 +137,7 @@ export const JobFormModal = ({
     if (isNaN(Number(formData.advance)) || Number(formData.advance) < 0) {
       newErrors.advance = 'Advance cannot be negative';
     } else if (Number(formData.advance) > calculatedAmount) {
-      newErrors.advance = `Advance (₹${Number(formData.advance).toLocaleString('en-IN')}) cannot exceed total amount (₹${calculatedAmount.toLocaleString('en-IN')})`;
+      newErrors.advance = `Advance (₹${Number(formData.advance).toLocaleString('en-IN')}) cannot exceed Total (₹${calculatedAmount.toLocaleString('en-IN')})`;
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -274,13 +274,13 @@ export const JobFormModal = ({
               required
             />
 
-            {/* Calculated Total Amount Display */}
+            {/* Calculated Total Display */}
             <div className="w-full space-y-1.5 col-span-2 sm:col-span-1">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
                 Calculated Amount
               </label>
               <div className="px-3.5 py-2.5 rounded-xl bg-violet-50 border border-violet-200 text-violet-800 font-mono font-bold text-sm flex items-center justify-between shadow-xs">
-                <span>Total Amount:</span>
+                <span>Total:</span>
                 <span className="text-base text-violet-900">₹{calculatedAmount.toLocaleString('en-IN')}</span>
               </div>
             </div>
@@ -305,11 +305,10 @@ export const JobFormModal = ({
                 Calculated Due
               </label>
               <div
-                className={`px-3.5 py-2.5 rounded-xl border font-mono font-bold text-sm flex items-center justify-between shadow-xs ${
-                  calculatedDue > 0
+                className={`px-3.5 py-2.5 rounded-xl border font-mono font-bold text-sm flex items-center justify-between shadow-xs ${calculatedDue > 0
                     ? 'bg-amber-50 border-amber-200 text-amber-800'
                     : 'bg-emerald-50 border-emerald-200 text-emerald-800'
-                }`}
+                  }`}
               >
                 <span>Due:</span>
                 <span className="text-base">₹{calculatedDue.toLocaleString('en-IN')}</span>
