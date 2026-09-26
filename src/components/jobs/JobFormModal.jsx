@@ -185,7 +185,7 @@ export const JobFormModal = ({
     >
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Row 1: Client Name & Phone */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           <Input
             label="Client Name *"
             name="clientName"
@@ -220,7 +220,7 @@ export const JobFormModal = ({
         />
 
         {/* Row 3: Designer Select & Status */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
           <Select
             label="Assigned Designer"
             name="designer"
@@ -241,13 +241,13 @@ export const JobFormModal = ({
         </div>
 
         {/* Row 4: Quantity, Rate, Live Amount */}
-        <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
+        <div className="p-3 sm:p-4 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
           <div className="flex items-center justify-between text-xs font-bold text-violet-700 uppercase tracking-wider">
             <span>Pricing & Billing Calculation</span>
-            <span className="text-[10px] text-slate-500 font-normal">Auto-calculated (Qty × Rate)</span>
+            <span className="text-[10px] text-slate-500 font-normal hidden sm:inline">Auto-calculated (Qty × Rate)</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 items-end">
             <Input
               label="Quantity *"
               name="quantity"
@@ -275,7 +275,7 @@ export const JobFormModal = ({
             />
 
             {/* Calculated Total Amount Display */}
-            <div className="w-full space-y-1.5">
+            <div className="w-full space-y-1.5 col-span-2 sm:col-span-1">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
                 Calculated Amount
               </label>
@@ -287,7 +287,7 @@ export const JobFormModal = ({
           </div>
 
           {/* Row 5: Advance & Due Calculation */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-200/80">
+          <div className="grid grid-cols-2 gap-3 pt-2 border-t border-slate-200/80">
             <Input
               label="Advance Paid (₹)"
               name="advance"
@@ -319,7 +319,7 @@ export const JobFormModal = ({
         </div>
 
         {/* Row 6: Dates */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
           <Input
             label="Order Date"
             name="date"

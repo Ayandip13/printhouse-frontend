@@ -167,17 +167,17 @@ export const Designers = () => {
 
       {/* Filter and Search Bar */}
       <Card>
-        <CardContent className="p-4 sm:p-5">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="w-full sm:max-w-md">
+        <CardContent className="p-3 sm:p-5">
+          <div className="flex flex-row items-center justify-between gap-2 sm:gap-4">
+            <div className="flex-1 min-w-0">
               <Input
-                placeholder="Search designers by name, email, or phone..."
+                placeholder="Search designers..."
                 icon={Search}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <div className="w-full sm:w-48 shrink-0 flex items-center gap-2">
+            <div className="w-32 sm:w-48 shrink-0 flex items-center gap-1.5 sm:gap-2">
               <Select
                 options={statusFilterOptions}
                 value={selectedStatus}
@@ -189,7 +189,7 @@ export const Designers = () => {
                 onClick={() => refetch()}
                 icon={RefreshCw}
                 title="Refresh designers list"
-                className="p-2.5 text-slate-500 hover:text-slate-900 shrink-0"
+                className="p-2 sm:p-2.5 text-slate-500 hover:text-slate-900 shrink-0"
               />
             </div>
           </div>

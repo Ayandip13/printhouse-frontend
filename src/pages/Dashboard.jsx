@@ -6,17 +6,11 @@ import {
   Clock,
   Printer,
   CheckCircle2,
-  TrendingUp,
   Sparkles,
   ArrowRight,
   Plus,
   Calendar,
-  User,
-  Phone,
-  DollarSign,
   Palette,
-  AlertCircle,
-  RefreshCw,
   Eye,
 } from 'lucide-react';
 import { PageHeader } from '../components/ui/PageHeader';
@@ -89,22 +83,20 @@ export const Dashboard = () => {
   const completedPct = Math.round(((metrics.completedJobs || 0) / total) * 100);
 
   return (
-    <div className="space-y-8 animate-in fade-in duration-300">
+    <div className="space-y-6 sm:space-y-8 animate-in fade-in duration-300">
       {/* Page Header */}
       <PageHeader
         title="Operational Dashboard"
         description="Real-time studio billing, print job status, and designer workload analytics"
         action={
-          <div className="flex items-center gap-3">
-            <Button
-              onClick={() => setIsFormModalOpen(true)}
-              icon={Plus}
-              variant="primary"
-              size="md"
-            >
-              + New Job
-            </Button>
-          </div>
+          <Button
+            onClick={() => setIsFormModalOpen(true)}
+            icon={Plus}
+            variant="primary"
+            size="md"
+          >
+            New Job
+          </Button>
         }
       />
 
@@ -122,149 +114,137 @@ export const Dashboard = () => {
 
       {!isLoading && !isError && (
         <>
-          {/* Top Real Database Metric Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {/* Top Real Database Metric Cards (2 side-by-side on mobile grid-cols-2) */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6">
             <Card hoverEffect className="relative bg-white border-slate-200">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              <CardContent className="p-3 sm:p-5">
+                <div className="flex items-center justify-between mb-1.5 sm:mb-3">
+                  <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 truncate">
                     Total Jobs
                   </span>
-                  <div className="w-10 h-10 rounded-xl bg-violet-50 text-violet-600 border border-violet-100 flex items-center justify-center shadow-xs">
-                    <Briefcase className="w-5 h-5" />
+                  <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-violet-50 text-violet-600 border border-violet-100 flex items-center justify-center shadow-xs shrink-0">
+                    <Briefcase className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                 </div>
 
-                <div className="flex items-baseline justify-between">
-                  <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+                <div className="flex items-baseline justify-between gap-1">
+                  <h2 className="text-xl sm:text-3xl font-black text-slate-900 tracking-tight">
                     {metrics.totalJobs}
                   </h2>
-                  <Badge status="default">Total</Badge>
+                  <Badge status="default" className="text-[9px] sm:text-xs px-1.5 py-0.5 sm:px-2.5">Total</Badge>
                 </div>
-                <p className="text-xs text-slate-500 mt-3 font-medium">
-                  Recorded in print shop database
-                </p>
               </CardContent>
             </Card>
 
             <Card hoverEffect className="relative bg-white border-slate-200">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+              <CardContent className="p-3 sm:p-5">
+                <div className="flex items-center justify-between mb-1.5 sm:mb-3">
+                  <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 truncate">
                     Pending Jobs
                   </span>
-                  <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 flex items-center justify-center shadow-xs">
-                    <Clock className="w-5 h-5" />
+                  <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-amber-50 text-amber-600 border border-amber-100 flex items-center justify-center shadow-xs shrink-0">
+                    <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                 </div>
 
-                <div className="flex items-baseline justify-between">
-                  <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+                <div className="flex items-baseline justify-between gap-1">
+                  <h2 className="text-xl sm:text-3xl font-black text-slate-900 tracking-tight">
                     {metrics.pendingJobs}
                   </h2>
-                  <Badge status="pending">Pending</Badge>
+                  <Badge status="pending" className="text-[9px] sm:text-xs px-1.5 py-0.5 sm:px-2.5">Pending</Badge>
                 </div>
-                <p className="text-xs text-slate-500 mt-3 font-medium">
-                  Awaiting design/printing start
-                </p>
               </CardContent>
             </Card>
 
             <Card hoverEffect className="relative bg-white border-slate-200">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                    Processing Jobs
+              <CardContent className="p-3 sm:p-5">
+                <div className="flex items-center justify-between mb-1.5 sm:mb-3">
+                  <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 truncate">
+                    Processing
                   </span>
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shadow-xs">
-                    <Printer className="w-5 h-5" />
+                  <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shadow-xs shrink-0">
+                    <Printer className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                 </div>
 
-                <div className="flex items-baseline justify-between">
-                  <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+                <div className="flex items-baseline justify-between gap-1">
+                  <h2 className="text-xl sm:text-3xl font-black text-slate-900 tracking-tight">
                     {metrics.processingJobs}
                   </h2>
-                  <Badge status="process">In Production</Badge>
+                  <Badge status="process" className="text-[9px] sm:text-xs px-1.5 py-0.5 sm:px-2.5">In Prod</Badge>
                 </div>
-                <p className="text-xs text-slate-500 mt-3 font-medium">
-                  Currently in printing pipeline
-                </p>
               </CardContent>
             </Card>
 
             <Card hoverEffect className="relative bg-white border-slate-200">
-              <CardContent className="p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
-                    Completed Jobs
+              <CardContent className="p-3 sm:p-5">
+                <div className="flex items-center justify-between mb-1.5 sm:mb-3">
+                  <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500 truncate">
+                    Completed
                   </span>
-                  <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shadow-xs">
-                    <CheckCircle2 className="w-5 h-5" />
+                  <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shadow-xs shrink-0">
+                    <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                 </div>
 
-                <div className="flex items-baseline justify-between">
-                  <h2 className="text-3xl font-black text-slate-900 tracking-tight">
+                <div className="flex items-baseline justify-between gap-1">
+                  <h2 className="text-xl sm:text-3xl font-black text-slate-900 tracking-tight">
                     {metrics.completedJobs}
                   </h2>
-                  <Badge status="complete">Delivered / Ready</Badge>
+                  <Badge status="complete" className="text-[9px] sm:text-xs px-1.5 py-0.5 sm:px-2.5">Delivered</Badge>
                 </div>
-                <p className="text-xs text-slate-500 mt-3 font-medium">
-                  Finished & ready for pickup
-                </p>
               </CardContent>
             </Card>
           </div>
 
           {/* Operational Financials Summary & Status Overview Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5 sm:gap-6">
             {/* Financial Summary Card */}
             <Card className="lg:col-span-2">
-              <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100">
+              <CardHeader className="p-3.5 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100">
                 <div>
-                  <CardTitle className="text-lg">Shop Billing & Financial Summary</CardTitle>
-                  <CardDescription>Live revenue totals calculated from all recorded job orders</CardDescription>
+                  <CardTitle className="text-sm sm:text-lg">Shop Billing & Financial Summary</CardTitle>
+                  <CardDescription className="text-[11px] sm:text-xs">Live revenue totals calculated from recorded job orders</CardDescription>
                 </div>
-                <Badge status="active">Real-Time Totals</Badge>
+                <Badge status="active" className="self-start sm:self-auto text-[10px]">Real-Time Totals</Badge>
               </CardHeader>
 
-              <CardContent className="p-6">
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                  <div className="p-4 rounded-2xl bg-violet-50/60 border border-violet-100">
-                    <span className="text-xs font-bold uppercase tracking-wider text-violet-700 block mb-1">
+              <CardContent className="p-3.5 sm:p-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-4">
+                  <div className="p-3 sm:p-4 rounded-2xl bg-violet-50/60 border border-violet-100 col-span-2 sm:col-span-1">
+                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-violet-700 block mb-1">
                       Total Order Value
                     </span>
-                    <p className="text-2xl font-black font-mono text-slate-900">
+                    <p className="text-lg sm:text-2xl font-black font-mono text-slate-900">
                       ₹{financials.totalOrderValue.toLocaleString('en-IN')}
                     </p>
-                    <span className="text-[11px] text-slate-500 font-medium">Sum of all billing amounts</span>
+                    <span className="text-[10px] sm:text-[11px] text-slate-500 font-medium hidden sm:inline">Sum of billing amounts</span>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-100">
-                    <span className="text-xs font-bold uppercase tracking-wider text-blue-700 block mb-1">
-                      Total Advance Received
+                  <div className="p-3 sm:p-4 rounded-2xl bg-blue-50/60 border border-blue-100 col-span-1">
+                    <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-blue-700 block mb-1 truncate">
+                      Advance Rec.
                     </span>
-                    <p className="text-2xl font-black font-mono text-slate-900">
+                    <p className="text-lg sm:text-2xl font-black font-mono text-slate-900">
                       ₹{financials.totalAdvance.toLocaleString('en-IN')}
                     </p>
-                    <span className="text-[11px] text-slate-500 font-medium">Deposits collected</span>
+                    <span className="text-[10px] sm:text-[11px] text-slate-500 font-medium hidden sm:inline">Deposits collected</span>
                   </div>
 
-                  <div className={`p-4 rounded-2xl border ${
+                  <div className={`p-3 sm:p-4 rounded-2xl border col-span-1 ${
                     financials.totalDue > 0 ? 'bg-amber-50/80 border-amber-200' : 'bg-emerald-50/80 border-emerald-200'
                   }`}>
-                    <span className={`text-xs font-bold uppercase tracking-wider block mb-1 ${
+                    <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider block mb-1 truncate ${
                       financials.totalDue > 0 ? 'text-amber-800' : 'text-emerald-800'
                     }`}>
-                      Total Outstanding Balance
+                      Net Due
                     </span>
-                    <p className={`text-2xl font-black font-mono ${
+                    <p className={`text-lg sm:text-2xl font-black font-mono ${
                       financials.totalDue > 0 ? 'text-amber-900' : 'text-emerald-900'
                     }`}>
                       ₹{financials.totalDue.toLocaleString('en-IN')}
                     </p>
-                    <span className="text-[11px] text-slate-600 font-semibold">Net due across pending jobs</span>
+                    <span className="text-[10px] sm:text-[11px] text-slate-600 font-semibold hidden sm:inline">Across pending jobs</span>
                   </div>
                 </div>
               </CardContent>
@@ -272,19 +252,19 @@ export const Dashboard = () => {
 
             {/* Status Breakdown Segment */}
             <Card>
-              <CardHeader>
-                <CardTitle className="text-base">Production Status Breakdown</CardTitle>
-                <CardDescription>Ratio of pending vs active print jobs</CardDescription>
+              <CardHeader className="p-4 sm:p-5 border-b border-slate-100">
+                <CardTitle className="text-base">Production Status</CardTitle>
+                <CardDescription className="text-[11px] sm:text-xs">Ratio of pending vs active print jobs</CardDescription>
               </CardHeader>
-              <CardContent className="p-6 space-y-4">
+              <CardContent className="p-4 sm:p-6 space-y-4">
                 {/* Visual Progress Bar */}
-                <div className="h-4 w-full bg-slate-100 rounded-full overflow-hidden flex gap-0.5 p-0.5">
+                <div className="h-3.5 w-full bg-slate-100 rounded-full overflow-hidden flex gap-0.5 p-0.5">
                   <div style={{ width: `${pendingPct}%` }} className="bg-amber-500 rounded-l-full transition-all duration-500" title={`Pending: ${pendingPct}%`} />
                   <div style={{ width: `${processingPct}%` }} className="bg-blue-500 transition-all duration-500" title={`Processing: ${processingPct}%`} />
                   <div style={{ width: `${completedPct}%` }} className="bg-emerald-500 rounded-r-full transition-all duration-500" title={`Completed: ${completedPct}%`} />
                 </div>
 
-                <div className="space-y-2.5 text-xs font-semibold pt-2">
+                <div className="space-y-2.5 text-xs font-semibold pt-1">
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-2 text-slate-700">
                       <span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> Pending Approval
@@ -311,26 +291,26 @@ export const Dashboard = () => {
           </div>
 
           {/* Section: Designer Workload & Upcoming Deliveries */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
             {/* Designer Workload Card */}
             <Card>
-              <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <CardHeader className="p-4 sm:p-5 flex flex-row items-center justify-between gap-2 border-b border-slate-100">
                 <div>
-                  <CardTitle className="text-base">Active Designer Workload</CardTitle>
-                  <CardDescription>Number of active jobs assigned per designer</CardDescription>
+                  <CardTitle className="text-base">Designer Workload</CardTitle>
+                  <CardDescription className="text-[11px] sm:text-xs">Active jobs per designer</CardDescription>
                 </div>
                 <Button
                   onClick={() => navigate('/designers')}
                   variant="ghost"
                   size="sm"
                   icon={ArrowRight}
-                  className="text-violet-600 hover:text-violet-700 text-xs"
+                  className="text-violet-600 hover:text-violet-700 text-xs px-2"
                 >
-                  Manage Designers
+                  Manage
                 </Button>
               </CardHeader>
 
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 {designerWorkload.length === 0 ? (
                   <EmptyState
                     icon={Palette}
@@ -340,23 +320,23 @@ export const Dashboard = () => {
                     onAction={() => navigate('/designers')}
                   />
                 ) : (
-                  <div className="space-y-3">
+                  <div className="space-y-2.5">
                     {designerWorkload.map((designer) => (
                       <div
                         key={designer.id}
-                        className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-violet-200 transition-colors"
+                        className="flex items-center justify-between p-3 rounded-2xl bg-slate-50 border border-slate-200/80 hover:border-violet-200 transition-colors"
                       >
-                        <div className="flex items-center gap-3 min-w-0">
-                          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-xs">
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-violet-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white shrink-0 shadow-xs">
                             {designer.name ? designer.name.charAt(0).toUpperCase() : 'D'}
                           </div>
                           <div className="min-w-0">
-                            <h4 className="text-sm font-bold text-slate-900 truncate">{designer.name}</h4>
-                            <p className="text-[11px] text-slate-500 font-mono">{designer.phone || designer.email || 'Active'}</p>
+                            <h4 className="text-xs sm:text-sm font-bold text-slate-900 truncate">{designer.name}</h4>
+                            <p className="text-[10px] text-slate-500 font-mono truncate">{designer.phone || designer.email || 'Active'}</p>
                           </div>
                         </div>
-                        <div className="text-right shrink-0">
-                          <span className="px-3 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 text-xs font-extrabold font-mono">
+                        <div className="text-right shrink-0 ml-2">
+                          <span className="px-2.5 py-1 rounded-full bg-violet-50 text-violet-700 border border-violet-200 text-[10px] sm:text-xs font-extrabold font-mono">
                             {designer.activeJobsCount} Active Job{designer.activeJobsCount !== 1 ? 's' : ''}
                           </span>
                         </div>
@@ -369,23 +349,23 @@ export const Dashboard = () => {
 
             {/* Upcoming Deliveries Card */}
             <Card>
-              <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <CardHeader className="p-4 sm:p-5 flex flex-row items-center justify-between gap-2 border-b border-slate-100">
                 <div>
-                  <CardTitle className="text-base">Upcoming Job Deliveries</CardTitle>
-                  <CardDescription>Orders scheduled for delivery soonest</CardDescription>
+                  <CardTitle className="text-base">Upcoming Deliveries</CardTitle>
+                  <CardDescription className="text-[11px] sm:text-xs">Scheduled for delivery soonest</CardDescription>
                 </div>
                 <Button
                   onClick={() => navigate('/jobs')}
                   variant="ghost"
                   size="sm"
                   icon={ArrowRight}
-                  className="text-violet-600 hover:text-violet-700 text-xs"
+                  className="text-violet-600 hover:text-violet-700 text-xs px-2"
                 >
                   View All
                 </Button>
               </CardHeader>
 
-              <CardContent className="p-6">
+              <CardContent className="p-4 sm:p-6">
                 {upcomingDeliveries.length === 0 ? (
                   <EmptyState
                     icon={Calendar}
@@ -393,7 +373,7 @@ export const Dashboard = () => {
                     description="Jobs with specified delivery dates will appear here."
                   />
                 ) : (
-                  <div className="space-y-3">
+                  <div className="space-y-2.5">
                     {upcomingDeliveries.map((job) => (
                       <div
                         key={job._id}
@@ -401,16 +381,16 @@ export const Dashboard = () => {
                           setSelectedJob(job);
                           setIsDetailsModalOpen(true);
                         }}
-                        className="flex items-center justify-between p-3.5 rounded-2xl bg-white border border-slate-200 hover:border-violet-300 hover:shadow-xs transition-all cursor-pointer"
+                        className="flex items-center justify-between p-3 rounded-2xl bg-white border border-slate-200 hover:border-violet-300 hover:shadow-xs transition-all cursor-pointer"
                       >
                         <div className="min-w-0">
                           <div className="flex items-center gap-2">
                             <h4 className="text-xs font-bold text-slate-900 truncate">{job.clientName}</h4>
-                            <Badge status={job.status}>{job.status}</Badge>
+                            <Badge status={job.status} className="text-[10px] px-1.5 py-0.2">{job.status}</Badge>
                           </div>
                           <p className="text-[11px] text-slate-500 truncate mt-0.5">{job.description}</p>
                         </div>
-                        <div className="text-right shrink-0 ml-3">
+                        <div className="text-right shrink-0 ml-2">
                           <span className="text-xs font-bold font-mono text-slate-900 block">
                             ₹{(job.amount || 0).toLocaleString('en-IN')}
                           </span>
@@ -429,16 +409,17 @@ export const Dashboard = () => {
 
           {/* Section: Recent Print Jobs Table / Card */}
           <Card>
-            <CardHeader className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <CardHeader className="p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
-                <CardTitle className="text-lg">Recent Print Jobs & Billing</CardTitle>
-                <CardDescription>Latest orders submitted into your printing database</CardDescription>
+                <CardTitle className="text-base sm:text-lg">Recent Print Jobs & Billing</CardTitle>
+                <CardDescription className="text-[11px] sm:text-xs">Latest orders submitted into your printing database</CardDescription>
               </div>
               <Button
                 onClick={() => navigate('/jobs')}
                 variant="outline"
                 size="sm"
                 icon={ArrowRight}
+                className="self-start sm:self-auto"
               >
                 View Full Jobs List
               </Button>
@@ -446,11 +427,11 @@ export const Dashboard = () => {
 
             <CardContent className="p-0">
               {recentJobs.length === 0 ? (
-                <div className="p-8">
+                <div className="p-6 sm:p-8">
                   <EmptyState
                     icon={Briefcase}
                     title="No print jobs in database"
-                    description="Create your first print job order using the + New Job button above."
+                    description="Create your first print job order using the New Job button above."
                     actionLabel="Create First Job"
                     onAction={() => setIsFormModalOpen(true)}
                   />
@@ -510,7 +491,7 @@ export const Dashboard = () => {
                   </div>
 
                   {/* Mobile Card List View */}
-                  <div className="md:hidden p-4 space-y-3">
+                  <div className="md:hidden p-3.5 space-y-2.5">
                     {recentJobs.map((job) => (
                       <div
                         key={job._id}
@@ -518,16 +499,16 @@ export const Dashboard = () => {
                           setSelectedJob(job);
                           setIsDetailsModalOpen(true);
                         }}
-                        className="p-3.5 rounded-2xl bg-white border border-slate-200 space-y-2 shadow-xs cursor-pointer"
+                        className="p-3 rounded-2xl bg-white border border-slate-200 space-y-1.5 shadow-xs cursor-pointer"
                       >
                         <div className="flex items-start justify-between">
                           <h4 className="text-xs font-bold text-slate-900">{job.clientName}</h4>
-                          <Badge status={job.status}>{job.status}</Badge>
+                          <Badge status={job.status} className="text-[10px] px-1.5 py-0.2">{job.status}</Badge>
                         </div>
                         <p className="text-[11px] text-slate-500 line-clamp-1">{job.description}</p>
                         <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-100 font-mono">
                           <span className="text-slate-500">Amount: ₹{(job.amount || 0).toLocaleString('en-IN')}</span>
-                          <span className="text-violet-600 font-bold">View Details →</span>
+                          <span className="text-violet-600 font-bold text-[11px]">View Details →</span>
                         </div>
                       </div>
                     ))}
